@@ -8,9 +8,19 @@ body {
   font-family: myFirstFont;
   font-size: 30px;
 }
+.start-mario-btn {
+  margin-top: 30%;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 #container {
-  background-image: url("../img/background.jpg");
+  background-image: url("../img/background-left.png");
   height: 100%;
   background-position: center;
   background-repeat: no-repeat;

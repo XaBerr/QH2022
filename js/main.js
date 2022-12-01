@@ -1,28 +1,28 @@
 $(document).ready(function () {
   console.log("ready!");
-  var audio = new Audio('sng/song.mp3')
-  audio.play();
-  $('#myModal').modal({
-    show: true
-  })
+  // var audio = new Audio('sng/song.mp3')
+  // audio.play();
+  // $('#myModal').modal({
+  //   show: true
+  // })
+  // $(".start-mario-btn").click(function () {
+  //   setTimeout(function () {
+  //     console.log("mario go");
+  //     location.href = "/mario"
+  //     hide(4);
+  //     // var audio = new Audio('sng/song.mp3')
+  //     // audio.play();
+  //   }, 5 * 500);
   $(".start-mario-btn").click(function () {
-    setTimeout(function () {
-      console.log("mario go");
-      location.href = "/mario"
-      hide(4);
-      // var audio = new Audio('sng/song.mp3')
-      // audio.play();
-    }, 5 * 500);
-    $(".start-demogorgon-btn").click(function () {
-      setTimeout(function () {
-        location.href = "/demogorgon"
-        console.log("demogorgon go");
-        hide(4);
-        // var audio = new Audio('sng/song.mp3')
-        // audio.play();
-      }, 5 * 500);
-    });
+    location.href = "/demogorgon"
+    //     setTimeout(function () {
+    //       console.log("demogorgon go");
+    //       hide(4);
+    //       // var audio = new Audio('sng/song.mp3')
+    //       // audio.play();
+    //     }, 5 * 500);
   });
+  // });
 
   // function getBobData() {
   //   console.log("Start - getBobData");

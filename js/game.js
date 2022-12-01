@@ -102,6 +102,14 @@ const levelConf = {
   height: 16,
   pos: vec2(0, 0),
   // define each object as a list of components
+  "O": () => [
+    sprite("emptyBox"),
+    area(),
+    solid(),
+    bump(),
+    origin("bot"),
+    'emptyBox'
+  ],
   "=": () => [
     sprite("ground"),
     area(),
@@ -190,6 +198,14 @@ const levelConf = {
     bump(150, 20, false),
     origin("bot"),
     "playerMario"
+  ],
+  "@": () => [
+    sprite("emptyBox-ud"),
+    area(),
+    solid(),
+    bump(),
+    origin("bot"),
+    'emptyBox'
   ],
   "#": () => [
     sprite("ground-ud"),
@@ -413,7 +429,7 @@ scene("game", (levelNumber = 0) => {
         }
       var pos = obj.gridPos;
       destroy(obj);
-      var box = level.spawn("!", pos);
+      var box = level.spawn("O", pos);
       box.bump();
     }
   });
@@ -539,7 +555,7 @@ scene("game", (levelNumber = 0) => {
         }
       var pos = obj.gridPos;
       destroy(obj);
-      var box = level.spawn("!", pos);
+      var box = level.spawn("@", pos);
       box.bump();
     }
   });
