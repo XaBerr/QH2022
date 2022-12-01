@@ -10,6 +10,7 @@ kaboom({
 loadRoot("../img/sprites/");
 loadAseprite("mario", "Mario.png", "Mario.json");
 loadAseprite("enemies", "enemies.png", "enemies.json");
+loadAseprite("enemies-ud", "enemies-ud.png", "enemies-ud.json");
 loadSprite("ground", "ground.png");
 loadSprite("questionBox", "questionBox.png");
 loadSprite("emptyBox", "emptyBox.png");
@@ -268,7 +269,7 @@ const levelConf = {
     "badGuy"
   ],
   "L": () => [
-    sprite("pipeTop"),
+    sprite("pipeTop-ud"),
     area(),
     solid(),
     origin("bot"),
