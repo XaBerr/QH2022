@@ -780,7 +780,7 @@ function demogorgon() {
         this.jumping();
       }
       else {
-        if (keyIsDown("left") || keyIsDown("right")) {
+        if (keyIsDown("a") || keyIsDown("d")) {
           this.running();
         } else {
           this.standing();
