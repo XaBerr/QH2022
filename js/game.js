@@ -7,6 +7,7 @@ kaboom({
 });
 
 // ASSETS
+// mushroom island
 loadRoot("../img/sprites/");
 loadAseprite("mario", "Mario.png", "Mario.json");
 loadAseprite("enemies", "enemies.png", "enemies.json");
@@ -23,6 +24,8 @@ loadSprite("shrubbery", "shrubbery.png");
 loadSprite("hill", "hill.png");
 loadSprite("cloud", "cloud.png");
 loadSprite("castle", "laboratory.png");
+
+// upsidedown
 loadAseprite("demogorgon", "Mario.png", "Mario.json");
 loadAseprite("enemies-ud", "enemies.png", "enemies.json");
 loadSprite("ground-ud", "ground-ud.png");
@@ -288,17 +291,17 @@ const levelConf = {
 
 // START SCENE
 scene("start", () => {
+  go("game");
+  // add([
+  //   text("Press enter to start", { size: 24 }),
+  //   pos(vec2(160, 120)),
+  //   origin("center"),
+  //   color(255, 255, 255),
+  // ]);
 
-  add([
-    text("Press enter to start", { size: 24 }),
-    pos(vec2(160, 120)),
-    origin("center"),
-    color(255, 255, 255),
-  ]);
-
-  onKeyRelease("enter", () => {
-    go("game");
-  })
+  // onKeyRelease("enter", () => {
+  //   go("game");
+  // })
 });
 
 go("start");
@@ -345,9 +348,8 @@ scene("game", (levelNumber = 0) => {
   ]);
 
   const playerMario = level.spawn("p1", 1, 9)
-  const playerDemogorgon = level.spawn("p2", 1, 12 + 9)
 
-  // PlayerMario movements
+  // Player Mario movements
   const SPEED = 120;
 
   onKeyDown("right", () => {
@@ -474,6 +476,133 @@ scene("game", (levelNumber = 0) => {
       }
     })
   });
+
+  // Player demogorgon
+  const playerDemogorgon = level.spawn("p2", 1, 12 + 9)
+
+  onKeyDown("d", () => {
+    if (playerDemogorgon.isFrozen) return;
+    playerDemogorgon.flipX(false);
+    playerDemogorgon.move(SPEED, 0);
+  });
+
+  onKeyDown("a", () => {
+    if (playerDemogorgon.isFrozen) return;
+    playerDemogorgon.flipX(true);
+    if (toScreen(playerDemogorgon.pos).x > 20) {
+      playerDemogorgon.move(-SPEED, 0);
+    }
+  });
+
+  onKeyPress("w", () => {
+    if (playerDemogorgon.isAlive && playerDemogorgon.grounded()) {
+      playerDemogorgon.jump();
+      canSquash = true;
+    }
+  });
+
+  playerDemogorgon.onUpdate(() => {
+    // center camera to playerDemogorgon
+    var currCam = camPos();
+    if (currCam.x < playerDemogorgon.pos.x) {
+      camPos(playerDemogorgon.pos.x, currCam.y);
+    }
+    if (playerDemogorgon.isAlive && playerDemogorgon.grounded()) {
+      canSquash = false;
+    }
+    // Check if Demogorgon has fallen off the screen
+    if (playerDemogorgon.pos.y > height() - 16) {
+      killed();
+    }
+  });
+
+  // Killing enemies
+  playerDemogorgon.onCollide("badGuy", (baddy) => {
+    if (baddy.isAlive == false) return;
+    if (canSquash) {
+      // Demogorgon has jumped on the bad guy:
+      baddy.squash();
+    } else {
+      // Demogorgon has been hurt. Add logic here later...
+    }
+  });
+
+  // Blocks breaking
+  playerDemogorgon.on("headbutt", (obj) => {
+    if (obj.is("questionBox")) {
+      if (obj.is("coinBox")) {
+        let coin = level.spawn("c", obj.gridPos.sub(0, 1));
+        coin.bump();
+      } else
+        if (obj.is("mushyBox")) {
+          level.spawn("M", obj.gridPos.sub(0, 1));
+        }
+      var pos = obj.gridPos;
+      destroy(obj);
+      var box = level.spawn("!", pos);
+      box.bump();
+    }
+  });
+
+  // Other actions
+  playerDemogorgon.onCollide("bigMushy", (mushy) => {
+    destroy(mushy);
+    playerDemogorgon.bigger();
+  });
+
+  playerDemogorgon.onCollide("badGuy", (baddy) => {
+    if (baddy.isAlive == false) return;
+    if (playerDemogorgon.isAlive == false) return;
+    if (canSquash) {
+      // Demogorgon has jumped on the bad guy:
+      baddy.squash();
+    } else {
+      // Demogorgon has been hurt
+      if (playerDemogorgon.isBig) {
+        playerDemogorgon.smaller();
+      } else {
+        // Demogorgon is dead :(
+        killed();
+      }
+    }
+  });
+
+  function killed() {
+    // Demogorgon is dead :(
+    if (playerDemogorgon.isAlive == false) return; // Don't run it if Demogorgon is already dead
+    playerDemogorgon.die();
+    add([
+      text("Game Over :(", { size: 24 }),
+      pos(toWorld(vec2(160, 120))),
+      color(255, 255, 255),
+      origin("center"),
+      layer('ui'),
+    ]);
+    wait(2, () => {
+      go("start");
+    })
+  }
+
+  playerDemogorgon.onCollide("castle", (castle, side) => {
+    playerDemogorgon.freeze();
+    add([
+      text("Well Done!", { size: 24 }),
+      pos(toWorld(vec2(160, 120))),
+      color(255, 255, 255),
+      origin("center"),
+      layer('ui'),
+    ]);
+    wait(1, () => {
+      let nextLevel = levelNumber + 1;
+
+      if (nextLevel >= LEVELS.length) {
+        go("start");
+      } else {
+        go("game", nextLevel);
+      }
+    })
+  });
+
 });
 
 function customComponent(args) {
