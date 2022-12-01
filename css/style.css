@@ -1,0 +1,68 @@
+@font-face {
+  font-family: myFirstFont;
+  src: url(../fonts/Benguiat-Bold.ttf);
+}
+
+body {
+  background-color: #161622;
+  font-family: myFirstFont;
+  font-size: 30px;
+}
+
+#container {
+  background-image: url("../img/background.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#parent-sketch-holder {
+  perspective: 1000px;
+}
+
+#sketch-holder {
+  transform: rotateX(50deg);
+}
+
+.darkMode {
+  background-color: #343a40!important;
+  color: white;
+}
+
+.neon-text {
+  color: #fff !important;
+  text-shadow:
+    0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 20px #fff,
+    0 0 40px #0ff,
+    0 0 80px #0ff,
+    0 0 90px #0ff,
+    0 0 100px #0ff,
+    0 0 150px #0ff!important;
+}
+
+.neon-bg {
+  background-color: #fff !important;
+  box-shadow:
+    0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 20px #fff,
+    0 0 40px #0ff,
+    0 0 80px #0ff,
+    0 0 90px #0ff,
+    0 0 100px #0ff,
+    0 0 150px #0ff!important;
+}
+
+.messages {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  font-size: 50px;
+}
+
+.combo {
+  bottom: 100px;
+}
