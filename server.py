@@ -9,6 +9,11 @@ def main_page():
     return render_template('index.html')
 
 
+@app.route("/mario")
+def game_page():
+    return render_template('mario.html')
+
+
 @app.route('/js/<path:path>')
 def send_js(path):
     return send_from_directory('js', path)
@@ -30,10 +35,10 @@ def send_ttf(path):
 
 
 @app.route('/sng/<path:path>')
-def send_mp3(path):
-    return send_from_directory('sng', path)
-
-
-@app.route('/sng/<path:path>')
 def send_sng(path):
     return send_from_directory('sng', path)
+
+
+# @app.route('/api/get_q_state')
+# def send_q_state(path):
+#     return 1.1
