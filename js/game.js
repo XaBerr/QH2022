@@ -385,7 +385,7 @@ scene("game", (levelNumber = 0) => {
   onKeyPress("space", () => {
     if (playerMario.isAlive && playerMario.grounded()) {
       playerMario.jump();
-      canSquash = true;
+      canSquashMario = true;
     }
   });
 
@@ -396,20 +396,20 @@ scene("game", (levelNumber = 0) => {
       camPos(playerMario.pos.x, currCam.y);
     }
     if (playerMario.isAlive && playerMario.grounded()) {
-      canSquash = false;
+      canSquashMario = false;
     }
     // Check if Mario has fallen off the screen
     if (playerMario.pos.y > height() - 16) {
-      killed();
+      killed(playerMario);
     }
   });
 
   // Killing enemies
-  let canSquash = false;
+  let canSquashMario = false;
 
   playerMario.onCollide("badGuy", (baddy) => {
     if (baddy.isAlive == false) return;
-    if (canSquash) {
+    if (canSquashMario) {
       // Mario has jumped on the bad guy:
       baddy.squash();
     } else {
@@ -443,7 +443,7 @@ scene("game", (levelNumber = 0) => {
   playerMario.onCollide("badGuy", (baddy) => {
     if (baddy.isAlive == false) return;
     if (playerMario.isAlive == false) return;
-    if (canSquash) {
+    if (canSquashMario) {
       // Mario has jumped on the bad guy:
       baddy.squash();
     } else {
@@ -452,15 +452,15 @@ scene("game", (levelNumber = 0) => {
         playerMario.smaller();
       } else {
         // Mario is dead :(
-        killed();
+        killed(playerMario);
       }
     }
   });
 
-  function killed() {
+  function killed(_player) {
     // Mario is dead :(
-    if (playerMario.isAlive == false) return; // Don't run it if mario is already dead
-    playerMario.die();
+    if (_player.isAlive == false) return; // Don't run it if mario is already dead
+    _player.die();
     add([
       text("Game Over :(", { size: 24 }),
       pos(toWorld(vec2(160, 120))),
@@ -513,7 +513,7 @@ scene("game", (levelNumber = 0) => {
   onKeyPress("w", () => {
     if (playerDemogorgon.isAlive && playerDemogorgon.grounded()) {
       playerDemogorgon.jump();
-      canSquash = true;
+      canSquashDemogorgon = true;
     }
   });
 
@@ -524,18 +524,20 @@ scene("game", (levelNumber = 0) => {
       camPos(playerDemogorgon.pos.x, currCam.y);
     }
     if (playerDemogorgon.isAlive && playerDemogorgon.grounded()) {
-      canSquash = false;
+      canSquashMario = false;
     }
     // Check if Demogorgon has fallen off the screen
     if (playerDemogorgon.pos.y > height() - 16) {
-      killed();
+      killed(playerDemogorgon);
     }
   });
+
+  let canSquashDemogorgon = false;
 
   // Killing enemies
   playerDemogorgon.onCollide("badGuy", (baddy) => {
     if (baddy.isAlive == false) return;
-    if (canSquash) {
+    if (canSquashDemogorgon) {
       // Demogorgon has jumped on the bad guy:
       baddy.squash();
     } else {
@@ -569,7 +571,7 @@ scene("game", (levelNumber = 0) => {
   playerDemogorgon.onCollide("badGuy", (baddy) => {
     if (baddy.isAlive == false) return;
     if (playerDemogorgon.isAlive == false) return;
-    if (canSquash) {
+    if (canSquashDemogorgon) {
       // Demogorgon has jumped on the bad guy:
       baddy.squash();
     } else {
@@ -578,26 +580,10 @@ scene("game", (levelNumber = 0) => {
         playerDemogorgon.smaller();
       } else {
         // Demogorgon is dead :(
-        killed();
+        killed(playerDemogorgon);
       }
     }
   });
-
-  function killed() {
-    // Demogorgon is dead :(
-    if (playerDemogorgon.isAlive == false) return; // Don't run it if Demogorgon is already dead
-    playerDemogorgon.die();
-    add([
-      text("Game Over :(", { size: 24 }),
-      pos(toWorld(vec2(160, 120))),
-      color(255, 255, 255),
-      origin("center"),
-      layer('ui'),
-    ]);
-    wait(2, () => {
-      go("start");
-    })
-  }
 
   playerDemogorgon.onCollide("castle", (castle, side) => {
     playerDemogorgon.freeze();
