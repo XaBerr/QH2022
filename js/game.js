@@ -6,6 +6,8 @@ kaboom({
   height: 240 * 2,
   scale: 2,
 });
+// loadSprite("background", "../img/background.jpg");
+// add([sprite("background")]);
 
 // ASSETS
 // mushroom island
@@ -401,7 +403,7 @@ scene("game", (levelNumber = 0) => {
     }
     // Check if Mario has fallen off the screen
     if (playerMario.pos.y > height() - 16) {
-      killed(playerMario);
+      killed(playerMario, "mario");
     }
   });
 
@@ -453,22 +455,46 @@ scene("game", (levelNumber = 0) => {
         playerMario.smaller();
       } else {
         // Mario is dead :(
-        killed(playerMario);
+        killed(playerMario, "mario");
       }
     }
   });
 
-  function killed(_player) {
+  function killed(_player, _id) {
     // Mario is dead :(
     if (_player.isAlive == false) return; // Don't run it if mario is already dead
     _player.die();
-    add([
-      text("Game Over :(", { size: 24 }),
-      pos(toWorld(vec2(160, 120))),
-      color(255, 255, 255),
-      origin("center"),
-      layer('ui'),
-    ]);
+    if (_id == "mario") {
+      add([
+        text("Game Over :(", { size: 24 }),
+        pos(toWorld(vec2(160, 120))),
+        color(255, 255, 255),
+        origin("center"),
+        layer('ui'),
+      ]);
+      add([
+        text("Game Win :)", { size: 24 }),
+        pos(toWorld(vec2(160, 320))),
+        color(255, 255, 255),
+        origin("center"),
+        layer('ui'),
+      ]);
+    } else {
+      add([
+        text("Game Over :(", { size: 24 }),
+        pos(toWorld(vec2(160, 320))),
+        color(255, 255, 255),
+        origin("center"),
+        layer('ui'),
+      ]);
+      add([
+        text("Game Win :)", { size: 24 }),
+        pos(toWorld(vec2(160, 120))),
+        color(255, 255, 255),
+        origin("center"),
+        layer('ui'),
+      ]);
+    }
     wait(2, () => {
       go("start");
     })
@@ -529,7 +555,7 @@ scene("game", (levelNumber = 0) => {
     }
     // Check if Demogorgon has fallen off the screen
     if (playerDemogorgon.pos.y > height() - 16) {
-      killed(playerDemogorgon);
+      killed(playerDemogorgon, "demogorgon");
     }
   });
 
@@ -581,7 +607,7 @@ scene("game", (levelNumber = 0) => {
         playerDemogorgon.smaller();
       } else {
         // Demogorgon is dead :(
-        killed(playerDemogorgon);
+        killed(playerDemogorgon, "demogorgon");
       }
     }
   });
