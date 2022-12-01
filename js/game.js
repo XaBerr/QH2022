@@ -1,7 +1,8 @@
 //  INIT
 kaboom({
-  background: [134, 135, 247],
-  width: 320,
+  background: [10, 10, 10],
+  // background: [134, 135, 247],
+  width: 1000,
   height: 240 * 2,
   scale: 2,
 });
@@ -524,7 +525,7 @@ scene("game", (levelNumber = 0) => {
       camPos(playerDemogorgon.pos.x, currCam.y);
     }
     if (playerDemogorgon.isAlive && playerDemogorgon.grounded()) {
-      canSquashMario = false;
+      canSquashDemogorgon = false;
     }
     // Check if Demogorgon has fallen off the screen
     if (playerDemogorgon.pos.y > height() - 16) {

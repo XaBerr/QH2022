@@ -17,8 +17,19 @@
 </head>
 
 <body>
+  <!-- <embed src="sng/song.mp3" loop="true" autostart="true" width="2" height="0"> -->
   <script src="https://unpkg.com/kaboom/dist/kaboom.js"></script>
   <script src="js/game.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function () {
+      setTimeout(function () {
+        var audio = new Audio('sng/song.mp3');
+        audio.play();
+      }, 5 * 500);
+    });
+  </script>
 </body>
 
 </html>

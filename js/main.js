@@ -14,7 +14,7 @@ $(document).ready(function () {
   //     // audio.play();
   //   }, 5 * 500);
   $(".start-mario-btn").click(function () {
-    location.href = "/demogorgon"
+    location.href = "/mario"
     //     setTimeout(function () {
     //       console.log("demogorgon go");
     //       hide(4);
