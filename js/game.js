@@ -24,18 +24,18 @@ loadSprite("cloud", "cloud.png");
 loadSprite("castle", "laboratory.png");
 loadAseprite("demogorgon", "Mario.png", "Mario.json");
 loadAseprite("enemies-ud", "enemies.png", "enemies.json");
-loadSprite("ground-ud", "ground.png");
-loadSprite("questionBox-ud", "questionBox.png");
-loadSprite("emptyBox-ud", "emptyBox.png");
-loadSprite("brick-ud", "brick.png");
-loadSprite("coin-ud", "coin.png");
-loadSprite("bigMushy-ud", "bigMushy.png");
-loadSprite("pipeTop-ud", "pipeTop.png");
-loadSprite("pipeBottom-ud", "pipeBottom.png");
-loadSprite("shrubbery-ud", "shrubbery.png");
-loadSprite("hill-ud", "hill.png");
-loadSprite("cloud-ud", "cloud.png");
-loadSprite("castle-ud", "laboratory.png");
+loadSprite("ground-ud", "ground-ud.png");
+loadSprite("questionBox-ud", "questionBox-ud.png");
+loadSprite("emptyBox-ud", "emptyBox-ud.png");
+loadSprite("brick-ud", "brick-ud.png");
+loadSprite("coin-ud", "coin-ud.png");
+loadSprite("bigMushy-ud", "bigMushy-ud.png");
+loadSprite("pipeTop-ud", "pipeTop-ud.png");
+loadSprite("pipeBottom-ud", "pipeBottom-ud.png");
+loadSprite("shrubbery-ud", "shrubbery-ud.png");
+loadSprite("hill-ud", "hill-ud.png");
+loadSprite("cloud-ud", "cloud-ud.png");
+loadSprite("castle-ud", "laboratory-ud.png");
 
 // LEVELS
 const LEVELS = [
