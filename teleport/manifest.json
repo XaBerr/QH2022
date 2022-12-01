@@ -1,8 +1,0 @@
-{
-  "application": {
-    "name": "teleport",
-    "description": "add description",
-    "multi_round": false
-  },
-  "remote": {}
-}
