@@ -24,6 +24,11 @@ def send_img(path):
     return send_from_directory('img', path)
 
 
+@app.route('/fonts/<path:path>')
+def send_ttf(path):
+    return send_from_directory('fonts', path)
+
+
 @app.route('/sng/<path:path>')
 def send_sng(path):
     return send_from_directory('sng', path)
