@@ -26,7 +26,7 @@ loadSprite("cloud", "cloud.png");
 loadSprite("castle", "laboratory.png");
 
 // upsidedown
-loadAseprite("demogorgon", "demogordon.png", "demogordon.json");
+loadAseprite("demogorgon", "demogorgon.png", "demogorgon.json");
 loadAseprite("enemies-ud", "enemies-ud.png", "enemies-ud.json");
 loadSprite("ground-ud", "ground-ud.png");
 loadSprite("questionBox-ud", "questionBox-ud.png");
