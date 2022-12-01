@@ -62,7 +62,7 @@ const LEVELS = [
     "                                                                                                ",
     "                                                                                                ",
     "                                                                                                ",
-    "      -!-B-                                                                                     ",
+    "      +!+B+                                                                                     ",
     "                                                    !        !                                  ",
     "                                                                                                ",
     "                                      L                 !                                       ",
@@ -161,7 +161,7 @@ const levelConf = {
     origin("bot"),
     "pipe"
   ],
-  "L": () => [
+  "_": () => [
     sprite("pipeTop"),
     area(),
     solid(),
@@ -188,14 +188,14 @@ const levelConf = {
     "playerMario"
   ],
   "#": () => [
-    sprite("ground"),
+    sprite("ground-ud"),
     area(),
     solid(),
     origin("bot"),
     "ground"
   ],
   "+": () => [
-    sprite("brick"),
+    sprite("brick-ud"),
     area(),
     solid(),
     origin("bot"),
@@ -208,7 +208,7 @@ const levelConf = {
     "castle"
   ],
   "!": () => [
-    sprite("questionBox"),
+    sprite("questionBox-ud"),
     area(),
     solid(),
     origin("bot"),
@@ -216,7 +216,7 @@ const levelConf = {
     'coinBox'
   ],
   "B": () => [
-    sprite("questionBox"),
+    sprite("questionBox-ud"),
     area(),
     solid(),
     origin("bot"),
@@ -234,7 +234,7 @@ const levelConf = {
     "coin"
   ],
   "M": () => [
-    sprite("bigMushy"),
+    sprite("bigMushy-ud"),
     area(),
     solid(),
     patrol(10000),
@@ -244,21 +244,21 @@ const levelConf = {
     "bigMushy"
   ],
   "T": () => [
-    sprite("pipeBottom"),
+    sprite("pipeBottom-ud"),
     area(),
     solid(),
     origin("bot"),
     "pipe"
   ],
   "U": () => [
-    sprite("pipeTop"),
+    sprite("pipeTop-ud"),
     area(),
     solid(),
     origin("bot"),
     "pipe"
   ],
   "E": () => [
-    sprite("enemies", { anim: 'Walking' }),
+    sprite("enemies-ud", { anim: 'Walking' }),
     area({ width: 16, height: 16 }),
     solid(),
     body(),
@@ -266,6 +266,13 @@ const levelConf = {
     enemy(),
     origin("bot"),
     "badGuy"
+  ],
+  "L": () => [
+    sprite("pipeTop"),
+    area(),
+    solid(),
+    origin("bot"),
+    "pipe"
   ],
   "p2": () => [
     sprite("demogorgon", { frame: 0 }),
