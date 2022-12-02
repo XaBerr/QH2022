@@ -8,8 +8,10 @@ kaboom({
 });
 // loadSprite("background", "../img/background.jpg");
 // add([sprite("background")]);
+let yMario = 130;
+let yDemogorgon = 320;
 
-let currentQuantumState = [
+let currentQuantumStateMario = [
   { "label": "|JN>+|NJ>", "active": false },
   { "label": "|NJ>+|JN>", "active": false },
   { "label": "|JJ>+|NN>", "active": false },
@@ -20,8 +22,18 @@ let currentQuantumState = [
   { "label": "|NN>", "active": false },
 ];
 
+let currentQuantumStateDemogorgon = [
+  { "label": "|RL>+|LR>", "active": false },
+  { "label": "|LR>+|RL>", "active": false },
+  { "label": "|RR>+|LL>", "active": false },
+  { "label": "|LL>+|RR>", "active": false },
+  { "label": "|RL>", "active": false },
+  { "label": "|LR>", "active": false },
+  { "label": "|RR>", "active": false },
+  { "label": "|LL>", "active": false },
+];
+
 loadRoot("../img/sprites/");
-loadSprite("quantum", "quantum.png");
 
 // ASSETS
 // mushroom island
@@ -40,6 +52,7 @@ loadSprite("shrubbery", "shrubbery.png");
 loadSprite("hill", "hill.png");
 loadSprite("cloud", "cloud.png");
 loadSprite("castle", "laboratory.png");
+loadSprite("quantum", "quantum.png");
 
 // upsidedown
 loadAseprite("demogorgon", "demogorgon.png", "demogorgon.json");
@@ -56,6 +69,7 @@ loadSprite("shrubbery-ud", "shrubbery-ud.png");
 loadSprite("hill-ud", "hill-ud.png");
 loadSprite("cloud-ud", "cloud-ud.png");
 loadSprite("castle-ud", "laboratory-ud.png");
+loadSprite("quantum-ud", "quantum-ud.png");
 
 // LEVELS
 const LEVELS = [
@@ -71,7 +85,7 @@ const LEVELS = [
     "                                      Q                                                         ",
     "                                      _                 ?                                       ",
     "                                 _    |                                                         ",
-    "           Q               _     |    |                _         Q                              ",
+    "                           _     |    |                _         Q                              ",
     "   Q   e     e             |  e  |    |   e   e        |    e    e    e             H           ",
     "================     ===========================================================================",
     "================     ===========================================================================",
@@ -84,11 +98,11 @@ const LEVELS = [
     "                                                                                                ",
     "      +!+B+                                                                                     ",
     "                                                    !        !                                  ",
-    "                                      Q                                                         ",
+    "                                      q                                                         ",
     "                                      L                 !                                       ",
     "                                 L    T                                                         ",
-    "          Q                L     T    T                L         Q                              ",
-    "       E     E             T  E  T    T   E   E        T    E    E    E             H           ",
+    "                           L     T    T                L         q                              ",
+    "   q   E     E             T  E  T    T   E   E        T    E    E    E             H           ",
     "################     ###########################################################################",
     "################     ###########################################################################",
   ],
@@ -120,6 +134,13 @@ const levelConf = {
   // define each object as a list of components
   "Q": () => [
     sprite("quantum"),
+    area(),
+    solid(),
+    origin("bot"),
+    'quantum'
+  ],
+  "q": () => [
+    sprite("quantum-ud"),
     area(),
     solid(),
     origin("bot"),
@@ -466,14 +487,14 @@ scene("game", (levelNumber = 0) => {
   playerMario.onCollide("quantum", (quantum) => {
     destroy(quantum);
     // playerMario.bigger();
-    currentQuantumState.forEach(element => {
+    currentQuantumStateMario.forEach(element => {
       element["active"] = false;
     });
-    quantumStatePos = Math.floor(Math.random() * currentQuantumState.length);
-    currentQuantumState[quantumStatePos]["active"] = true;
+    quantumStatePos = Math.floor(Math.random() * currentQuantumStateMario.length);
+    currentQuantumStateMario[quantumStatePos]["active"] = true;
     add([
-      text(currentQuantumState[quantumStatePos]["label"], { size: 24 }),
-      pos(toWorld(vec2(300, 234))),
+      text(currentQuantumStateMario[quantumStatePos]["label"], { size: 24 }),
+      pos(toWorld(vec2(300, yMario))),
       color(255, 255, 255),
       origin("center"),
       layer('ui'),
@@ -506,14 +527,14 @@ scene("game", (levelNumber = 0) => {
     if (_id == "mario") {
       add([
         text("Game Over :(", { size: 24 }),
-        pos(toWorld(vec2(160, 120))),
+        pos(toWorld(vec2(160, yMario))),
         color(255, 255, 255),
         origin("center"),
         layer('ui'),
       ]);
       add([
         text("Game Win :)", { size: 24 }),
-        pos(toWorld(vec2(160, 320))),
+        pos(toWorld(vec2(160, yDemogorgon))),
         color(255, 255, 255),
         origin("center"),
         layer('ui'),
@@ -521,14 +542,14 @@ scene("game", (levelNumber = 0) => {
     } else {
       add([
         text("Game Over :(", { size: 24 }),
-        pos(toWorld(vec2(160, 320))),
+        pos(toWorld(vec2(160, yDemogorgon))),
         color(255, 255, 255),
         origin("center"),
         layer('ui'),
       ]);
       add([
         text("Game Win :)", { size: 24 }),
-        pos(toWorld(vec2(160, 120))),
+        pos(toWorld(vec2(160, yMario))),
         color(255, 255, 255),
         origin("center"),
         layer('ui'),
@@ -632,6 +653,25 @@ scene("game", (levelNumber = 0) => {
   playerDemogorgon.onCollide("bigMushy", (mushy) => {
     destroy(mushy);
     playerDemogorgon.bigger();
+  });
+
+  playerDemogorgon.onCollide("quantum", (quantum) => {
+    destroy(quantum);
+    // playerDemogorgon.bigger();
+    currentQuantumStateDemogorgon.forEach(element => {
+      element["active"] = false;
+    });
+    quantumStatePos = Math.floor(Math.random() * currentQuantumStateDemogorgon.length);
+    currentQuantumStateDemogorgon[quantumStatePos]["active"] = true;
+    add([
+      text(currentQuantumStateDemogorgon[quantumStatePos]["label"], { size: 24 }),
+      pos(toWorld(vec2(300, yDemogorgon))),
+      color(180, 0, 0),
+      origin("center"),
+      layer('ui'),
+      fixed(),
+      lifespan(4, { fade: 0.5 })
+    ]);
   });
 
   playerDemogorgon.onCollide("badGuy", (baddy) => {
