@@ -564,7 +564,7 @@ scene("game", (levelNumber = 0) => {
     playerMario.freeze();
     add([
       text("Well Done!", { size: 24 }),
-      pos(toWorld(vec2(160, 120))),
+      pos(toWorld(vec2(160, yMario))),
       color(255, 255, 255),
       origin("center"),
       layer('ui'),
@@ -695,7 +695,7 @@ scene("game", (levelNumber = 0) => {
     playerDemogorgon.freeze();
     add([
       text("Well Done!", { size: 24 }),
-      pos(toWorld(vec2(160, 120))),
+      pos(toWorld(vec2(160, yDemogorgon))),
       color(255, 255, 255),
       origin("center"),
       layer('ui'),
