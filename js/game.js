@@ -8,29 +8,183 @@ kaboom({
 });
 // loadSprite("background", "../img/background.jpg");
 // add([sprite("background")]);
-let yMario = 130;
-let yDemogorgon = 320;
+const Y_MARIO = 130;
+const Y_DEMOGORGON = 320;
+const SPEED = 120;
+const DELTA_MOVE = 1;
 
 let currentQuantumStateMario = [
-  { "label": "|JN>+|NJ>", "active": false },
-  { "label": "|NJ>+|JN>", "active": false },
-  { "label": "|JJ>+|NN>", "active": false },
-  { "label": "|NN>+|JJ>", "active": false },
-  { "label": "|JN>", "active": false },
-  { "label": "|NJ>", "active": false },
-  { "label": "|JJ>", "active": false },
-  { "label": "|NN>", "active": false },
+  {
+    "label": "|JN>+|NJ>",
+    "active": false,
+    "callback": function (_player1, _player2) {
+      if (Math.random() > 0.5) {
+        _player1.moveJ();
+        _player2.moveN();
+      } else {
+        _player1.moveN();
+        _player2.moveJ();
+      }
+    }
+  },
+  {
+    "label": "|NJ>+|JN>",
+    "active": false,
+    "callback": function (_player1, _player2) {
+      if (Math.random() > 0.5) {
+        _player1.moveJ();
+        _player2.moveN();
+      } else {
+        _player1.moveN();
+        _player2.moveJ();
+      }
+    }
+  },
+  {
+    "label": "|JJ>+|NN>",
+    "active": false,
+    "callback": function (_player1, _player2) {
+      if (Math.random() > 0.5) {
+        _player1.moveJ();
+        _player2.moveJ();
+      } else {
+        _player1.moveN();
+        _player2.moveN();
+      }
+    }
+  },
+  {
+    "label": "|NN>+|JJ>",
+    "active": false,
+    "callback": function (_player1, _player2) {
+      if (Math.random() > 0.5) {
+        _player1.moveJ();
+        _player2.moveJ();
+      } else {
+        _player1.moveN();
+        _player2.moveN();
+      }
+    }
+  },
+  {
+    "label": "|JN>",
+    "active": false,
+    "callback": function (_player1, _player2) {
+      _player1.moveJ();
+      _player2.moveN();
+    }
+  },
+  {
+    "label": "|NJ>",
+    "active": false,
+    "callback": function (_player1, _player2) {
+      _player1.moveN();
+      _player2.moveJ();
+    }
+  },
+  {
+    "label": "|JJ>",
+    "active": false,
+    "callback": function (_player1, _player2) {
+      _player1.moveJ();
+      _player2.moveJ();
+    }
+  },
+  {
+    "label": "|NN>",
+    "active": false,
+    "callback": function (_player1, _player2) {
+      _player1.moveN();
+      _player2.moveN();
+    }
+  },
 ];
 
 let currentQuantumStateDemogorgon = [
-  { "label": "|RL>+|LR>", "active": false },
-  { "label": "|LR>+|RL>", "active": false },
-  { "label": "|RR>+|LL>", "active": false },
-  { "label": "|LL>+|RR>", "active": false },
-  { "label": "|RL>", "active": false },
-  { "label": "|LR>", "active": false },
-  { "label": "|RR>", "active": false },
-  { "label": "|LL>", "active": false },
+  {
+    "label": "|RL>+|LR>",
+    "active": false,
+    "callback": function (_player1, _player2) {
+      if (Math.random() > 0.5) {
+        _player1.moveR();
+        _player2.moveL();
+      } else {
+        _player1.moveL();
+        _player2.moveR();
+      }
+    }
+  },
+  {
+    "label": "|LR>+|RL>",
+    "active": false,
+    "callback": function (_player1, _player2) {
+      if (Math.random() > 0.5) {
+        _player1.moveR();
+        _player2.moveL();
+      } else {
+        _player1.moveL();
+        _player2.moveR();
+      }
+    }
+  },
+  {
+    "label": "|RR>+|LL>",
+    "active": false,
+    "callback": function (_player1, _player2) {
+      if (Math.random() > 0.5) {
+        _player1.moveR();
+        _player2.moveR();
+      } else {
+        _player1.moveL();
+        _player2.moveL();
+      }
+    }
+  },
+  {
+    "label": "|LL>+|RR>",
+    "active": false,
+    "callback": function (_player1, _player2) {
+      if (Math.random() > 0.5) {
+        _player1.moveR();
+        _player2.moveR();
+      } else {
+        _player1.moveL();
+        _player2.moveL();
+      }
+    }
+  },
+  {
+    "label": "|RL>",
+    "active": false,
+    "callback": function (_player1, _player2) {
+      _player1.moveR();
+      _player2.moveL();
+    }
+  },
+  {
+    "label": "|LR>",
+    "active": false,
+    "callback": function (_player1, _player2) {
+      _player1.moveL();
+      _player2.moveR();
+    }
+  },
+  {
+    "label": "|RR>",
+    "active": false,
+    "callback": function (_player1, _player2) {
+      _player1.moveR();
+      _player2.moveR();
+    }
+  },
+  {
+    "label": "|LL>",
+    "active": false,
+    "callback": function (_player1, _player2) {
+      _player1.moveL();
+      _player2.moveL();
+    }
+  },
 ];
 
 loadRoot("../img/sprites/");
@@ -410,7 +564,29 @@ scene("game", (levelNumber = 0) => {
   const playerMario = level.spawn("p1", 1, 9)
 
   // Player Mario movements
-  const SPEED = 120;
+  onKeyDown("q", () => {
+    console.log("x-axis");
+    // playerMario.moveJ();
+    currentQuantumStateMario.forEach(element => {
+      if (element["active"]) {
+        console.log(element["label"]);
+        element["callback"](playerMario, playerDemogorgon);
+        element["active"] = false;
+        return;
+      }
+    });
+  });
+
+  onKeyDown("p", () => {
+    console.log("y-axis");
+    currentQuantumStateDemogorgon.forEach(element => {
+      if (element["active"]) {
+        element["callback"](playerMario, playerDemogorgon);
+        element["active"] = false;
+        return;
+      }
+    });
+  });
 
   onKeyDown("right", () => {
     if (playerMario.isFrozen) return;
@@ -494,7 +670,7 @@ scene("game", (levelNumber = 0) => {
     currentQuantumStateMario[quantumStatePos]["active"] = true;
     add([
       text(currentQuantumStateMario[quantumStatePos]["label"], { size: 24 }),
-      pos(toWorld(vec2(300, yMario))),
+      pos(toWorld(vec2(300, Y_MARIO))),
       color(255, 255, 255),
       origin("center"),
       layer('ui'),
@@ -527,14 +703,14 @@ scene("game", (levelNumber = 0) => {
     if (_id == "mario") {
       add([
         text("Game Over :(", { size: 24 }),
-        pos(toWorld(vec2(160, yMario))),
+        pos(toWorld(vec2(160, Y_MARIO))),
         color(255, 255, 255),
         origin("center"),
         layer('ui'),
       ]);
       add([
         text("Game Win :)", { size: 24 }),
-        pos(toWorld(vec2(160, yDemogorgon))),
+        pos(toWorld(vec2(160, Y_DEMOGORGON))),
         color(255, 255, 255),
         origin("center"),
         layer('ui'),
@@ -542,14 +718,14 @@ scene("game", (levelNumber = 0) => {
     } else {
       add([
         text("Game Over :(", { size: 24 }),
-        pos(toWorld(vec2(160, yDemogorgon))),
+        pos(toWorld(vec2(160, Y_DEMOGORGON))),
         color(255, 255, 255),
         origin("center"),
         layer('ui'),
       ]);
       add([
         text("Game Win :)", { size: 24 }),
-        pos(toWorld(vec2(160, yMario))),
+        pos(toWorld(vec2(160, Y_MARIO))),
         color(255, 255, 255),
         origin("center"),
         layer('ui'),
@@ -564,7 +740,7 @@ scene("game", (levelNumber = 0) => {
     playerMario.freeze();
     add([
       text("Well Done!", { size: 24 }),
-      pos(toWorld(vec2(160, yMario))),
+      pos(toWorld(vec2(160, Y_MARIO))),
       color(255, 255, 255),
       origin("center"),
       layer('ui'),
@@ -665,7 +841,7 @@ scene("game", (levelNumber = 0) => {
     currentQuantumStateDemogorgon[quantumStatePos]["active"] = true;
     add([
       text(currentQuantumStateDemogorgon[quantumStatePos]["label"], { size: 24 }),
-      pos(toWorld(vec2(300, yDemogorgon))),
+      pos(toWorld(vec2(300, Y_DEMOGORGON))),
       color(180, 0, 0),
       origin("center"),
       layer('ui'),
@@ -695,7 +871,7 @@ scene("game", (levelNumber = 0) => {
     playerDemogorgon.freeze();
     add([
       text("Well Done!", { size: 24 }),
-      pos(toWorld(vec2(160, yDemogorgon))),
+      pos(toWorld(vec2(160, Y_DEMOGORGON))),
       color(255, 255, 255),
       origin("center"),
       layer('ui'),
@@ -777,7 +953,7 @@ function bump(offset = 8, speed = 2, stopAtOrigin = true) {
     speed: speed,
     bumped: false,
     origPos: 0,
-    direction: -1,
+    direction: -4,
     update() {
       if (this.bumped) {
         this.pos.y = this.pos.y + this.direction * this.speed;
@@ -846,6 +1022,30 @@ function mario() {
       this.stop();
       this.frame = this.isBig ? this.bigJumpFrame : this.smallJumpFrame;
     },
+    moveL() {
+      if (toScreen(this.pos).x > 20 * DELTA_MOVE) {
+        for (let index = 0; index < DELTA_MOVE; index++) {
+          this.move(-SPEED, 0);
+        }
+      }
+    },
+    moveR() {
+      if (toScreen(this.pos).x > 20 * DELTA_MOVE) {
+        for (let index = 0; index < DELTA_MOVE; index++) {
+          this.move(SPEED, 0);
+        }
+      }
+    },
+    moveJ() {
+      if (this.isAlive && this.grounded()) {
+        this.jump();
+      }
+    },
+    moveN() {
+      if (this.isAlive && this.grounded()) {
+        this.stop();
+      }
+    },
     running() {
       const animation = this.isBig ? this.bigAnimation : this.smallAnimation;
       if (this.curAnim() !== animation) {
@@ -912,6 +1112,26 @@ function demogorgon() {
     jumping() {
       this.stop();
       this.frame = this.isBig ? this.bigJumpFrame : this.smallJumpFrame;
+    },
+    moveL() {
+      if (toScreen(this.pos).x > 20 * DELTA_MOVE) {
+        for (let index = 0; index < DELTA_MOVE; index++) {
+          this.move(-SPEED, 0);
+        }
+      }
+    },
+    moveR() {
+      if (toScreen(this.pos).x > 20 * DELTA_MOVE) {
+        for (let index = 0; index < DELTA_MOVE; index++) {
+          this.move(SPEED, 0);
+        }
+      }
+    },
+    moveJ() {
+      this.jump();
+    },
+    moveN() {
+      this.stop();
     },
     running() {
       const animation = this.isBig ? this.bigAnimation : this.smallAnimation;
