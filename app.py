@@ -54,26 +54,31 @@ def send_sng(path):
 # returns two entangled qubits
 @app.route("/api/generate_entangled")
 def generate_entangled():
-    timestamp = getTimeTag()
+    qubitID = getTimeTag()
     # generates 2 |0> qubits
     qubits = nq.create_qubits(2)
     # Not second bit
     nq.operate(qubits[1], ns.X)
     # Entangle
     nq.operate(qubits, ns.CNOT)
-    qubitdb[timestamp] = qubits
-    return timestamp
+    qubitdb[qubitID] = qubits
+    return qubitID
 
 @app.route("/api/get_qubit/<qubitID>")
 def get_qubit(qubitID):
-    return str(qubitdb[qubitID])
-
-@app.route("/api/measure/<qubitID>/<operator>")
-def measure_qubit(qubitID, operator):
-    if operator in ops.keys() and qubitID in qubitdb.keys():
+    if qubitID in qubitdb.keys():
         q1, q2 = qubitdb[qubitID]
-        nq.operate(q1, ops[operator])
         a = nq.measure(q1)
         b = nq.measure(q2)
         return str(a[0]) + str(b[0])
+    return "BadRequest"
+
+@app.route("/api/measure/<qubitID>")
+@app.route("/api/measure/<qubitID>/<operator>")
+def measure_qubit(qubitID, operator=None):
+    if (operator in ops.keys() or operator is None) and qubitID in qubitdb.keys():
+        q1, q2 = qubitdb[qubitID]
+        if operator is not None:
+            nq.operate(q1, ops[operator])
+        return get_qubit(qubitID)
     return "BadRequest"
