@@ -9,9 +9,22 @@ kaboom({
 // loadSprite("background", "../img/background.jpg");
 // add([sprite("background")]);
 
+let currentQuantumState = [
+  { "label": "|JN>+|NJ>", "active": false },
+  { "label": "|NJ>+|JN>", "active": false },
+  { "label": "|JJ>+|NN>", "active": false },
+  { "label": "|NN>+|JJ>", "active": false },
+  { "label": "|JN>", "active": false },
+  { "label": "|NJ>", "active": false },
+  { "label": "|JJ>", "active": false },
+  { "label": "|NN>", "active": false },
+];
+
+loadRoot("../img/sprites/");
+loadSprite("quantum", "quantum.png");
+
 // ASSETS
 // mushroom island
-loadRoot("../img/sprites/");
 loadAseprite("mario", "Mario.png", "Mario.json");
 loadAseprite("enemies", "enemies.png", "enemies.json");
 loadAseprite("enemies-ud", "enemies-ud.png", "enemies-ud.json");
@@ -55,11 +68,11 @@ const LEVELS = [
     "                                                                                                ",
     "      -?-b-                                                                                     ",
     "                                                    ?        ?                                  ",
-    "                                                                                                ",
+    "                                      Q                                                         ",
     "                                      _                 ?                                       ",
     "                                 _    |                                                         ",
-    "                           _     |    |                _                                        ",
-    "       e     e             |  e  |    |   e   e        |    e    e    e             H           ",
+    "           Q               _     |    |                _         Q                              ",
+    "   Q   e     e             |  e  |    |   e   e        |    e    e    e             H           ",
     "================     ===========================================================================",
     "================     ===========================================================================",
 
@@ -71,10 +84,10 @@ const LEVELS = [
     "                                                                                                ",
     "      +!+B+                                                                                     ",
     "                                                    !        !                                  ",
-    "                                                                                                ",
+    "                                      Q                                                         ",
     "                                      L                 !                                       ",
     "                                 L    T                                                         ",
-    "                           L     T    T                L                                        ",
+    "          Q                L     T    T                L         Q                              ",
     "       E     E             T  E  T    T   E   E        T    E    E    E             H           ",
     "################     ###########################################################################",
     "################     ###########################################################################",
@@ -105,6 +118,13 @@ const levelConf = {
   height: 16,
   pos: vec2(0, 0),
   // define each object as a list of components
+  "Q": () => [
+    sprite("quantum"),
+    area(),
+    solid(),
+    origin("bot"),
+    'quantum'
+  ],
   "O": () => [
     sprite("emptyBox"),
     area(),
@@ -441,6 +461,25 @@ scene("game", (levelNumber = 0) => {
   playerMario.onCollide("bigMushy", (mushy) => {
     destroy(mushy);
     playerMario.bigger();
+  });
+
+  playerMario.onCollide("quantum", (quantum) => {
+    destroy(quantum);
+    // playerMario.bigger();
+    currentQuantumState.forEach(element => {
+      element["active"] = false;
+    });
+    quantumStatePos = Math.floor(Math.random() * currentQuantumState.length);
+    currentQuantumState[quantumStatePos]["active"] = true;
+    add([
+      text(currentQuantumState[quantumStatePos]["label"], { size: 24 }),
+      pos(toWorld(vec2(300, 234))),
+      color(255, 255, 255),
+      origin("center"),
+      layer('ui'),
+      fixed(),
+      lifespan(4, { fade: 0.5 })
+    ]);
   });
 
   playerMario.onCollide("badGuy", (baddy) => {
