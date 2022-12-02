@@ -205,7 +205,7 @@ loadSprite("pipeBottom", "pipeBottom.png");
 loadSprite("shrubbery", "shrubbery.png");
 loadSprite("hill", "hill.png");
 loadSprite("cloud", "cloud.png");
-loadSprite("castle", "laboratory.png");
+loadSprite("laboratory", "laboratory.png");
 loadSprite("quantum", "quantum.png");
 
 // upsidedown
@@ -222,7 +222,7 @@ loadSprite("pipeBottom-ud", "pipeBottom-ud.png");
 loadSprite("shrubbery-ud", "shrubbery-ud.png");
 loadSprite("hill-ud", "hill-ud.png");
 loadSprite("cloud-ud", "cloud-ud.png");
-loadSprite("castle-ud", "laboratory-ud.png");
+loadSprite("laboratory-ud", "laboratory-ud.png");
 loadSprite("quantum-ud", "quantum-ud.png");
 
 // LEVELS
@@ -240,7 +240,7 @@ const LEVELS = [
     "                                      _                 ?                                       ",
     "                                 _    |                                                         ",
     "                           _     |    |                _         Q                              ",
-    "   Q   e     e             |  e  |    |   e   e        |    e    e    e             H           ",
+    "   Q   e     e             |  e  |    |   e   e        |    e    e    e             h           ",
     "================     ===========================================================================",
     "================     ===========================================================================",
 
@@ -322,11 +322,17 @@ const levelConf = {
     origin("bot"),
     "brick"
   ],
-  "H": () => [
-    sprite("castle"),
+  "h": () => [
+    sprite("laboratory"),
     area({ width: 1, height: 240 }),
     origin("bot"),
-    "castle"
+    "laboratory"
+  ],
+  "H": () => [
+    sprite("laboratory-ud"),
+    area({ width: 1, height: 240 }),
+    origin("bot"),
+    "laboratory-ud"
   ],
   "?": () => [
     sprite("questionBox"),
@@ -418,12 +424,6 @@ const levelConf = {
     solid(),
     origin("bot"),
     "brick"
-  ],
-  "H": () => [
-    sprite("castle"),
-    area({ width: 1, height: 240 }),
-    origin("bot"),
-    "castle"
   ],
   "!": () => [
     sprite("questionBox-ud"),
@@ -564,7 +564,7 @@ scene("game", (levelNumber = 0) => {
   const playerMario = level.spawn("p1", 1, 9)
 
   // Player Mario movements
-  onKeyDown("q", () => {
+  onKeyDown("p", () => {
     console.log("x-axis");
     // playerMario.moveJ();
     currentQuantumStateMario.forEach(element => {
@@ -577,7 +577,7 @@ scene("game", (levelNumber = 0) => {
     });
   });
 
-  onKeyDown("p", () => {
+  onKeyDown("q", () => {
     console.log("y-axis");
     currentQuantumStateDemogorgon.forEach(element => {
       if (element["active"]) {
@@ -602,7 +602,7 @@ scene("game", (levelNumber = 0) => {
     }
   });
 
-  onKeyPress("space", () => {
+  onKeyPress("up", () => {
     if (playerMario.isAlive && playerMario.grounded()) {
       playerMario.jump();
       canSquashMario = true;
@@ -736,7 +736,7 @@ scene("game", (levelNumber = 0) => {
     })
   }
 
-  playerMario.onCollide("castle", (castle, side) => {
+  playerMario.onCollide("laboratory", (laboratory, side) => {
     playerMario.freeze();
     add([
       text("Well Done!", { size: 24 }),
@@ -867,7 +867,7 @@ scene("game", (levelNumber = 0) => {
     }
   });
 
-  playerDemogorgon.onCollide("castle", (castle, side) => {
+  playerDemogorgon.onCollide("laboratory-ud", (laboratory, side) => {
     playerDemogorgon.freeze();
     add([
       text("Well Done!", { size: 24 }),
