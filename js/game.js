@@ -11,7 +11,7 @@ kaboom({
 const Y_MARIO = 130;
 const Y_DEMOGORGON = 320;
 const SPEED = 120;
-const DELTA_MOVE = 1;
+const DELTA_MOVE = 3;
 
 let currentQuantumStateMario = [
   {
