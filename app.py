@@ -3,54 +3,63 @@ from netsquid import I, Z
 import netsquid.qubits as nq
 import time
 
-### flask init
+# flask init
 app = Flask(__name__)
 
-### netsquid init
+# netsquid init
 qubitdb = dict()
 # define valid operators
 U = (I + Z) / 2
 D = (I - Z) / 2
 ops = {
-    'U':U,
-    'D':D,
+    'U': U,
+    'D': D,
 }
+
+
 def getTimeTag():
     return str(int(time.time() * 1000000))
 
-### game engine api
+# game engine api
+
+
 @app.route("/")
 @app.route('/', methods=['GET'])
 def main_page():
     return render_template('index.html')
 
+
 @app.route("/mario")
 def game_page():
     return render_template('mario.html')
+
 
 @app.route('/js/<path:path>')
 def send_js(path):
     return send_from_directory('js', path)
 
+
 @app.route('/css/<path:path>')
 def send_css(path):
     return send_from_directory('css', path)
+
 
 @app.route('/img/<path:path>')
 def send_img(path):
     return send_from_directory('img', path)
 
+
 @app.route('/fonts/<path:path>')
 def send_ttf(path):
     return send_from_directory('fonts', path)
+
 
 @app.route('/sng/<path:path>')
 def send_sng(path):
     return send_from_directory('sng', path)
 
 
-
-### qubit api
+# qubit api
 # returns two entangled qubits
 @app.route("/api/generate_entangled")
 def generate_entangled():
@@ -64,6 +73,7 @@ def generate_entangled():
     qubitdb[qubitID] = qubits
     return qubitID
 
+
 @app.route("/api/get_qubit/<qubitID>")
 def get_qubit(qubitID):
     if qubitID in qubitdb.keys():
@@ -72,6 +82,7 @@ def get_qubit(qubitID):
         b = nq.measure(q2)
         return str(a[0]) + str(b[0])
     return "BadRequest"
+
 
 @app.route("/api/measure/<qubitID>")
 @app.route("/api/measure/<qubitID>/<operator>")
