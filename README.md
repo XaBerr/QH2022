@@ -38,7 +38,7 @@ The game commands for the **Demogorgon** are:
 
 ## Lore
 You can read the comics [HERE](https://github.com/XaBerr/QH2022/raw/main/LORE/mario-mortal-entanglement.pdf).
-
+<br>
 This is the lore in 6 simple steps:
 - Eleven seals the Demogorgon inside the upside-down with a quantum-mechanic book.
 - Demogorgon studies the book to go back in Eleven's world and he became a scientist.
