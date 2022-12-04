@@ -9,9 +9,9 @@ def main_page():
     return render_template('index.html')
 
 
-@app.route("/mario")
+@app.route("/game")
 def game_page():
-    return render_template('mario.html')
+    return render_template('game.html')
 
 
 @app.route('/js/<path:path>')

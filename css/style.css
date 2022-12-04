@@ -8,8 +8,8 @@ body {
   font-family: myFirstFont;
   font-size: 30px;
 }
-.start-mario-btn {
-  margin-top: 30%;
+.buttons-container {
+  padding-top: 10%;
 }
 
 .container {
