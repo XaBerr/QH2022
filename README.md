@@ -16,7 +16,7 @@
 
 ## Project information
 This project was made during the 2 days of the [Quantum Internet Hackathon 2022](https://labs.ripe.net/author/karla-white/take-part-in-the-quantum-internet-hackathon-2022/).
-The aim of this project is to develop a educational game concept for giving people a possibilities to interact with quantum states.
+The aim of this project is to develop an educational game concept for giving people a possibilities to interact with quantum states.
 
 ## Try the game
 The game is hosted on [https://qh-2022.vercel.app/](https://qh-2022.vercel.app/).
