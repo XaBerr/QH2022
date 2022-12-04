@@ -21,7 +21,8 @@ The aim of this project is to develop an educational game concept for giving peo
 ## Try the game
 ![game](https://user-images.githubusercontent.com/16030020/205505454-ec98adbb-8cc0-4590-982e-edeef8a55584.gif)
 The game is hosted on [https://qh-2022.vercel.app/](https://qh-2022.vercel.app/).
-
+<br>
+<br>
 
 The game commands for the **Mario** are:
 - **up-arrow**: jump
@@ -38,7 +39,7 @@ The game commands for the **Demogorgon** are:
 
 ## Lore
 You can read the comics [HERE](https://github.com/XaBerr/QH2022/raw/main/LORE/mario-mortal-entanglement.pdf).
-<br>
+
 This is the lore in 6 simple steps:
 - Eleven seals the Demogorgon inside the upside-down with a quantum-mechanic book.
 - Demogorgon studies the book to go back in Eleven's world and he became a scientist.
