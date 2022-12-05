@@ -31,14 +31,14 @@ The game commands for the **Mario** are:
 - **up-arrow**: jump
 - **left-arrow**: left
 - **right-arrow**: right
-- **p**: project the quantum state
+- **p**: project the quantum state (**J** jump, **N** not jump)
 
 
 The game commands for the **Demogorgon** are:
 - **w**: jump
 - **a**: left
 - **d**: right
-- **q**: project the quantum state
+- **q**: project the quantum state (**L** left, **R** right)
 
 ## Lore
 You can read the comics [HERE](https://github.com/XaBerr/QH2022/raw/main/LORE/mario-mortal-entanglement.pdf).
